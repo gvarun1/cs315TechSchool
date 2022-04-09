@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Contact Us | DigiSchool</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'contact.css' %}">
+        <script src="https://kit.fontawesome.com/e24c3cedee.js" crossorigin="anonymous"></script>
+        <style>
+          .logo {
+            border-radius: 60%;
+            border: 4px solid;
+            border-color: white;
+            width: 80px;
+            height: auto;
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+        </style>
+    </head>
+    <body>
+      {% if upload_error %}
+      <script>alert("There was some error!! Please try again later.")</script>
+      {% endif %}
+      {% if not query_submitted %}
+        <section id="contact">
+          {% load static %}
+            <a style="position: absolute; left:5%; top:5%;" href="/"><img class="logo" src="{% static 'logo_cright.jpg' %}" alt="digiSchool"></a>
+          <h3 style="font-family: 'Trebuchet MS', sans-serif; text-align: center;font-style: italic;">This project was created for a semester-course CS253 provided by IIT Kanpur.</h3>
+
+            <div class="contact-wrapper">
+              <form action="/contact/submit/" method="post" id="contact-form" class="form-horizontal" role="form">{% csrf_token %}
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="name" placeholder="NAME" name="query_name" value="" required="true" style="height:30px; width:400px;">
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <input type="email" class="form-control" id="email" placeholder="EMAIL" name="query_email" value="" required="true" style="height:30px; width:400px;">
+                  </div>
+                </div>
+          
+                <textarea class="form-control" rows="10" placeholder="My query is..." name="query_description" required="true" style="height:100px; width:400px;"></textarea>
+                
+
+                <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+                  <div class="alt-send-button">
+                    <i class="fa fa-paper-plane"></i><span class="send-text">SEND</span>
+                  </div>
+                
+                </button>
+                
+              </form>
+              
+            <!-- Left contact page --> 
+              
+                <div class="direct-contact-container">
+          
+                  <ul class="contact-list">
+                    <li class="list-item"><i class="fa fa-map-marker fa-2x"><span class="contact-text place">IIT Kanpur</span></i></li>
+                    
+                    <li class="list-item"><i class="fa fa-phone fa-2x"><span class="contact-text phone"><a href="tel:1-212-555-5555" title="Give me a call">7393080818</a></span></i></li>
+                    
+                    <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"><a href="mailto:#" title="Send me an email">akashh@iitk.ac.in</a></span></i></li>
+                    
+                  </ul>
+          
+                  
+                  <div class="copyright">&copy; ALL OF THE RIGHTS RESERVED</div>
+          
+                </div>
+              
+            </div>
+            
+          </section> 
+        {% else %}
+        <p style="font-family: 'Trebuchet MS', sans-serif; text-align: center;"><br>The Query is successfully submitted. You can now go to Home page.</p>
+        {% endif %}
+        {% load static %}
+        <script src="{% static 'contact.js' %}" async defer></script>
+    </body>
+</html>

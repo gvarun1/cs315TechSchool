@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create a Lecture | DigiSchool</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'test_create.css' %}">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/343524fab9.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .box{
+    width: 100%;
+margin: auto;
+padding: 2rem 2rem 2rem 2rem;
+background: rgba(255, 255, 255, 0.375);
+box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
+border-radius: 2rem;
+border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.input100 {
+position: relative;
+display: block;
+width: 100%;
+background: #fff;
+border-radius: 3px;
+font-family: 'Matter Wild', sans-serif;
+font-size: 30px;
+color: #8f8fa1;
+line-height: 1.5;
+outline: none;
+border: none;
+background: rgba(255, 255, 255, 0.375);
+box-shadow: 0 0.75rem 2rem 0 rgba(214, 21, 21, 0.2);
+resize: vertical;
+}
+    </style>
+    <style>
+
+      .fileUpload {
+	background: #00bcbe;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 1em;
+	font-weight: bold;
+	margin: 1.25em auto;/*20px/16px 0*/
+	overflow: hidden;
+	padding: 0.875em;/*14px/16px*/
+	position: relative;
+	text-align: center;
+	width: 400px;
+   cursor: pointer;
+}
+.fileUpload:hover, .fileUpload:active, .fileUpload:focus {
+	background: #00a2a4;
+  cursor: pointer;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 46px;
+  cursor: pointer;
+  width: 400px;
+}
+
+input[type="file"] {
+    position: fixed;
+    right: 100%;
+    bottom: 100%;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    
+}
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo-details">
+        <div class="logo_name">Dashboard</div>
+          <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="/profile/">
+            <i class='bx bxs-home'></i>
+            <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+          </li>
+          <li>
+            <a href="/lecture/">
+              <i class='bx bxs-book-open'></i>
+              <span class="links_name">Lectures</span>
+            </a>
+            <span class="tooltip">Lectures</span>
+          </li>
+          <li>
+            <a href="/test/">
+            <i class='bx bx-question-mark'></i>
+            <span class="links_name">Tests</span>
+            </a>
+            <span class="tooltip">Tests</span>
+          </li>
+          <li>
+            <a href="/forum/">
+            <i class='bx bxs-comment-detail' ></i>
+            <span class="links_name">Forum</span>
+            </a>
+            <span class="tooltip">Forum</span>
+          </li>
+          <li>
+            <a href="/news/">
+            <i class='bx bx-chat' ></i>
+            <span class="links_name">Announcement</span>
+            </a>
+            <span class="tooltip">Announcement</span>
+          </li>
+          <li>
+            <a href="/logout/">
+            <i class='bx bx-exit'></i>
+            <span class="links_name">Logout</span>
+            </a>
+            <span class="tooltip">Logout</span>
+          </li>
+        </ul>
+    </div>
+    <div class="main">
+    <div class="box">
+      <form style="background: transparent" id="uploadform" name="time_test" action="/lecture/upload/" enctype="multipart/form-data" method="post">{% csrf_token %}
+        <h1 style="font: Open Sans; font-weight: bold; overflow-wrap: break-word; color: black">Create a Lecture in {{ full_course_name }}</h1>
+        <br>
+        <input type="hidden" name="selected_course" value="{{ course_id }}">
+        <div class="item">
+          <textarea class="input100" type="text" name="lecture_title" placeholder="Title of the Lecture." required="true" onblur="title_validation();"></textarea><br>
+
+        </div>
+        <div class="item">
+          <div class="fileUpload">
+            <input type="file" class="upload" id="selectedfiles" placeholder="Upload files (if any)" name="lecture-files"  onchange="printfiles();" multiple><!--add a attribute of only allowed file types.-->
+          <span>Select Additional Files to Upload</span>
+          </div> 
+        </div>
+        <p style="font: Open Sans; font-weight: bold; overflow-wrap: break-word; color:black;" id="filesplaceholder"></p>
+        <div class="item">
+          <div class="fileUpload" style="background: #e03500;">
+            <input type="file" class="upload" id="selectedfiles2" placeholder="Upload files (if any)" name="video-file"  onchange="printfiles2();"><!--add a attribute of only allowed file types.-->
+          <span>Select The Video Lecture to Upload</span>
+          </div>
+        </div>
+        <p style="font: Open Sans; font-weight: bold; overflow-wrap: break-word; color:black;" id="filesplaceholder2"></p>
+        <div class="btn-block">
+          <button type="submit" href="#" class=" btn btn-defalut btn-info" style="background-color: #11101D;color:white;">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    {% load static %}
+    <script src="{% static 'test1.js' %}"></script>
+    {% load static %}
+    <script src="{% static 'test_create.js' %}"></script>
+    {% load static %}
+    <script src="{% static 'test2.js' %}"></script>
+  </body>
+</html>
