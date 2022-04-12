@@ -91,6 +91,7 @@ DATABASES = {
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': 'Enter Your Sql Password'
+
     }
 }
 
