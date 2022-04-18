@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from loginapp import views as login_views
 from profileapp import views as profile_views
 from testapp import views as test_views
@@ -24,6 +24,7 @@ from lectureapp import views as lecture_views
 from forumapp import views as forum_views
 from courseapp import views as course_views
 urlpatterns = [
+    path('__debug__/', include('debug_toolbar.urls')),
     path('admin/', admin.site.urls),
 
     # These are all related to login system.
@@ -62,8 +63,9 @@ urlpatterns = [
     path("lecture/create/<str:course_id_to_upload>", lecture_views.createPage),
     path("lecture/upload/", lecture_views.lectureUploaded),
     path("lecture/edit/<str:lecture_unique_id>", lecture_views.editLecturePage),
-    path("lecture/edit/upload/<str:lecture_unique_id>", lecture_views.editLectureUpload),
-    
+    path("lecture/edit/upload/<str:lecture_unique_id>",
+         lecture_views.editLectureUpload),
+
     # all forum related things
     path("forum/", forum_views.forumPage),
     path("forum/create/<str:course_id_to_upload>", forum_views.createPage),
@@ -80,6 +82,6 @@ urlpatterns = [
 
 
 
-    path("", login_views.homePage) # keep this in last.
+    path("", login_views.homePage)  # keep this in last.
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

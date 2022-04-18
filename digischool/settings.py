@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +41,8 @@ INSTALLED_APPS = [
     'forumapp',
     'lectureapp',
     'profileapp',
-    'testapp'
+    'testapp',
+    'debug_toolbar',
 ]
 
 
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'digischool.urls'
@@ -90,7 +91,7 @@ DATABASES = {
         'NAME': 'TechSchoolcs315',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'Enter Your Sql Password'
+        'PASSWORD': lol
 
     }
 }
@@ -138,3 +139,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
